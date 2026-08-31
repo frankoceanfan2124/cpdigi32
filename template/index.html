@@ -11,7 +11,7 @@
     <nav class="navbar">
         <div class="logo">Group Management</div>
         <ul class="nav-links">
-            <li><a href="#">Terms</a></li>
+            <li><a href="terms">Terms</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">More Info</a></li>
             <li><a href="#">Coming Soon</a></li>
@@ -20,8 +20,33 @@
 
     <main class="content">
         <h1>Welcome to my awesome site to help with group management!</h1>
-        <p>Are you happy now Dusung.</p>
+        <p>Sprint 2.</p>
     </main>
+    <div class="image-container">
+            
+        </div>
+      <main class="content">
+        <h1>Welcome to Group Management</h1>
+        <p>The journey of a thousand lines of code begins with a single navbar.</p>
+        
+       
+        <div class="image-container">
+            <img src="/static/team.jpg" alt="Group Collaboration" class="hero-image">
+        </div>
+
+       
+        <section class="docs-section">
+            <h2>About This Project</h2>
+            <p> Made in sprint 2. .</p>
+            <ul>
+                <li><strong>Tech Stack:</strong> Built using Python and the Flask framework.</li>
+                <li><strong>Frontend Design:</strong> Currently using native HTML5 and CSS3.</li>
+                <li><strong>Project Status:</strong> Currently in the MVP Sprint 2 Phase, featuring a navigation system, static file serving, and a structured basic UI.</li>
+            </ul>
+        </section>
+    </main>
+    
 
 </body>
 </html>
+<img src="{{ url_for('static', filename='team.jpeg.webp') }}" alt="Group Collaboration" class="hero-image">
