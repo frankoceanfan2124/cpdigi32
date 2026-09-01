@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .flash-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .flash-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
 <body>
     <!-- The Fully Connected Navbar -->
@@ -15,20 +30,31 @@
             <li><a href="/terms">Terms</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li><a href="/messages">Messages</a></li>
         </ul>
     </nav>
 
     <main class="content">
         <h1>Contact Support</h1>
         <section class="docs-section">
-            <!-- A basic HTML Form -->
-            <form action="#" method="POST">
+
+            <!-- Flash messages: shows success/error text after a form submission -->
+            {% with flash_messages = get_flashed_messages(with_categories=true) %}
+                {% if flash_messages %}
+                    {% for category, msg in flash_messages %}
+                        <p class="flash-message flash-{{ category }}">{{ msg }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Form now submits to /contact via POST, handled in app.py -->
+            <form action="{{ url_for('contact') }}" method="POST">
                 <p>Email Address:</p>
                 <input type="email" name="email" placeholder="you@example.com" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
-                
+
                 <p>Message:</p>
                 <textarea name="message" rows="4" placeholder="How can we help?" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;"></textarea>
-                
+
                 <button type="submit" style="padding: 10px 20px; background-color: #4daafc; color: white; border: none; border-radius: 5px; cursor: pointer;">Send Message</button>
             </form>
         </section>

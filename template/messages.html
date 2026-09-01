@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Messages</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Group Management</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/messages">Messages</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>Submitted Messages</h1>
+        <section class="docs-section">
+
+            {% if messages %}
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #ccc;">
+                            <th style="padding: 10px;">Email</th>
+                            <th style="padding: 10px;">Message</th>
+                            <th style="padding: 10px;">Sent At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in messages %}
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">{{ m['email'] }}</td>
+                            <td style="padding: 10px;">{{ m['message'] }}</td>
+                            <td style="padding: 10px;">{{ m['timestamp'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No messages have been submitted yet.</p>
+            {% endif %}
+
+        </section>
+    </main>
+</body>
+</html>
