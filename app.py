@@ -4,11 +4,12 @@ from database import init_db, add_message, get_all_messages
 app = Flask(__name__, template_folder='template', static_folder='static')
 
 # A secret key is required for flash messages (the "Thanks, message sent!"
-# confirmation) to work.
+# confirmation) to work. For a school project this can just be any string,
 # but in a real app it should be kept secret / loaded from an environment
 # variable rather than hard-coded.
 app.secret_key = 'dev-secret-key-change-this'
 
+# Make sure the messages table exists before the app starts handling requests.
 init_db()
 
 
@@ -33,6 +34,10 @@ def contact():
         email = request.form.get('email')
         message = request.form.get('message')
 
+        # Basic server-side validation. The HTML 'required' attribute
+        # stops most empty submissions, but that only runs in the browser
+        # -- a request sent directly (e.g. via a script) could skip it,
+        # so we check again here on the server.
         if not email or not message:
             flash("Please fill in both your email and a message.", "error")
             return redirect(url_for('contact'))
