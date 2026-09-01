@@ -29,6 +29,21 @@ def contact():
         message = request.form.get('message')
 
 
+  flash("Please fill in both your email and a message.", "error")
+            return redirect(url_for('contact'))
+
+
+ add_message(email, message)
+        flash("Thanks! Your message has been sent.", "success")
+        return redirect(url_for('contact'))
+
+     return render_template('contact.html') 
+
+@app.route('/messages')
+def messages():
+    all_messages = get_all_messages()
+    return render_template('messages.html', messages=all_messages)
+
 
 if __name__ == '__main__':
     app.run(debug=True) 
