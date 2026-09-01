@@ -40,4 +40,21 @@ def init_db():
     """)
     conn.commit()
     conn.close()
+
+ def init_db():
+    """
+    Creates the 'messages' table if it doesn't already exist.
+    Safe to call every time the app starts up.
+    """
+    conn = get_db_connection()
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            message TEXT NOT NULL,
+            timestamp TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
  
