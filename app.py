@@ -1,6 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template request, redirect, url_for, flash
+from database import init_db, add_message, get_all_messages
+ 
 
 app = Flask(__name__, template_folder='template', static_folder='static')
+
+app.secret_key = 'dev-secret-key-change-this'
+
 
 @app.route('/')
 def home():
