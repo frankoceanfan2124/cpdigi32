@@ -1,16 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from functools import wraps
+
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from database import init_db, add_message, get_all_messages
 
 app = Flask(__name__, template_folder='template', static_folder='static')
 
-# A secret key is required for flash messages (the "Thanks, message sent!"
-# confirmation) to work. For a school project this can just be any string,
-# but in a real app it should be kept secret / loaded from an environment
-# variable rather than hard-coded.
+# A secret key is required for flash messages AND for login sessions to work
+# (Flask uses it to cryptographically sign the session cookie so it can't be
+# tampered with). For a school project this can just be any string, but in
+# a real app it should be kept secret / loaded from an environment variable.
 app.secret_key = 'dev-secret-key-change-this'
+
+# The password needed to view /messages. In a real app this would never be
+# a plain string in the source code -- it'd be hashed and stored in the
+# database, or loaded from an environment variable. For an MVP/assessment,
+# a hard-coded constant is fine, but it's worth naming this as a known
+# limitation in your documentation.
+ADMIN_PASSWORD = 'changeme123'
 
 # Make sure the messages table exists before the app starts handling requests.
 init_db()
+
+
+def login_required(view_function):
+    """
+    A decorator that protects a route so it can only be accessed after
+    logging in. Any route wrapped with @login_required will redirect to
+    the login page if session['logged_in'] hasn't been set to True.
+
+    Wrapping this around a route instead of copy-pasting the same check
+    into every function means the login logic only has to be written once.
+    """
+    @wraps(view_function)
+    def wrapper(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login'))
+        return view_function(*args, **kwargs)
+    return wrapper
 
 
 @app.route('/')
@@ -49,7 +75,31 @@ def contact():
     return render_template('contact.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+
+        if password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            flash("Logged in successfully.", "success")
+            return redirect(url_for('messages'))
+        else:
+            flash("Incorrect password.", "error")
+            return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash("You've been logged out.", "success")
+    return redirect(url_for('login'))
+
+
 @app.route('/messages')
+@login_required
 def messages():
     all_messages = get_all_messages()
     return render_template('messages.html', messages=all_messages)
