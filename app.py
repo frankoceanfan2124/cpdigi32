@@ -1,7 +1,7 @@
 from functools import wraps
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from database import init_db, add_message, get_all_messages
+from database import init_db, add_message, get_all_messages, delete_message
 
 app = Flask(__name__, template_folder='template', static_folder='static')
 
@@ -16,7 +16,7 @@ app.secret_key = 'dev-secret-key-change-this'
 # database, or loaded from an environment variable. For an MVP/assessment,
 # a hard-coded constant is fine, but it's worth naming this as a known
 # limitation in your documentation.
-ADMIN_PASSWORD = 'cpelectric123'
+ADMIN_PASSWORD = 'changeme123'
 
 # Make sure the messages table exists before the app starts handling requests.
 init_db()
@@ -103,6 +103,19 @@ def logout():
 def messages():
     all_messages = get_all_messages()
     return render_template('messages.html', messages=all_messages)
+
+
+@app.route('/messages/delete/<int:message_id>', methods=['POST'])
+@login_required
+def delete_message_route(message_id):
+    # methods=['POST'] means this can only be triggered by a form submission,
+    # not by just visiting a URL -- stops someone accidentally (or
+    # maliciously) deleting messages just by clicking a link or a browser
+    # pre-fetching a URL. @login_required also means you have to be logged
+    # in to delete anything, same as viewing the page.
+    delete_message(message_id)
+    flash("Message deleted.", "success")
+    return redirect(url_for('messages'))
 
 
 if __name__ == '__main__':

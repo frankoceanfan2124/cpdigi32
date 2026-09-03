@@ -65,3 +65,11 @@ def get_all_messages():
     ).fetchall()
     conn.close()
     return messages
+
+
+def delete_message(message_id):
+    """Deletes a single message by its id."""
+    conn = get_db_connection()
+    conn.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+    conn.commit()
+    conn.close()

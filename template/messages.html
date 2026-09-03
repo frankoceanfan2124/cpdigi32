@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submitted Messages</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .flash-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .flash-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .delete-btn {
+            padding: 6px 12px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -23,6 +46,14 @@
         <h1>Submitted Messages</h1>
         <section class="docs-section">
 
+            {% with flash_messages = get_flashed_messages(with_categories=true) %}
+                {% if flash_messages %}
+                    {% for category, msg in flash_messages %}
+                        <p class="flash-message flash-{{ category }}">{{ msg }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             {% if messages %}
                 <table style="width: 100%; border-collapse: collapse; text-align: left;">
                     <thead>
@@ -30,6 +61,7 @@
                             <th style="padding: 10px;">Email</th>
                             <th style="padding: 10px;">Message</th>
                             <th style="padding: 10px;">Sent At</th>
+                            <th style="padding: 10px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +70,11 @@
                             <td style="padding: 10px;">{{ m['email'] }}</td>
                             <td style="padding: 10px;">{{ m['message'] }}</td>
                             <td style="padding: 10px;">{{ m['timestamp'] }}</td>
+                            <td style="padding: 10px;">
+                                <form action="{{ url_for('delete_message_route', message_id=m['id']) }}" method="POST" onsubmit="return confirm('Delete this message?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
