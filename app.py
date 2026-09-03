@@ -16,7 +16,7 @@ app.secret_key = 'dev-secret-key-change-this'
 # database, or loaded from an environment variable. For an MVP/assessment,
 # a hard-coded constant is fine, but it's worth naming this as a known
 # limitation in your documentation.
-ADMIN_PASSWORD = 'changeme123'
+ADMIN_PASSWORD = 'cpelectric123'
 
 # Make sure the messages table exists before the app starts handling requests.
 init_db()
