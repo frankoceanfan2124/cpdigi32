@@ -184,6 +184,76 @@ textarea:focus-visible {
     display: block;
 }
 
+.about-project {
+    margin-bottom: 3rem;
+}
+
+.section-intro {
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+}
+
+.btn-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    padding-bottom: 0.1rem;
+}
+
+.btn-link:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: var(--color-primary-hover);
+    text-decoration: none;
+}
+
+/* ---------- Research page ---------- */
+
+.page-intro {
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 720px;
+}
+
+.resource {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.resource:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.resource h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.resource p {
+    max-width: none;
+}
+
+.resource-source {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+}
+
+.resource-source a {
+    color: var(--color-primary);
+}
+
 /* ---------- About-this-project fact list ---------- */
 
 .fact-list {

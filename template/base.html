@@ -18,6 +18,7 @@
         <ul class="nav-links">
             <li><a href="{{ url_for('home') }}" class="{{ 'is-active' if request.path == '/' else '' }}">Home</a></li>
             <li><a href="{{ url_for('about') }}" class="{{ 'is-active' if request.path == '/about' else '' }}">About</a></li>
+            <li><a href="{{ url_for('research') }}" class="{{ 'is-active' if request.path == '/research' else '' }}">Research</a></li>
             <li><a href="{{ url_for('terms') }}" class="{{ 'is-active' if request.path == '/terms' else '' }}">Terms</a></li>
             <li><a href="{{ url_for('contact') }}" class="{{ 'is-active' if request.path == '/contact' else '' }}">Contact</a></li>
             <li><a href="{{ url_for('messages') }}" class="{{ 'is-active' if request.path == '/messages' else '' }}">Messages</a></li>
