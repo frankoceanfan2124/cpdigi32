@@ -1,28 +1,15 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <!-- The Fully Connected Navbar -->
-    <nav class="navbar">
-        <div class="logo">Group Management</div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/messages">Messages</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="content">
-        <h1>About the Developer</h1>
-        <section class="docs-section">
-            <p>I am building this application as part of Sprint 2 for my Computer Science coursework. The goal is to master frontend layout and backend routing using Python.</p>
-        </section>
-    </main>
-</body>
-</html>
+{% block title %}About &mdash; Group Management{% endblock %}
+
+{% block content %}
+<h1>About the developer</h1>
+<section class="prose">
+    <p>
+        I am building this application as part of my Computer Science
+        coursework. The goal is to master frontend layout and backend
+        routing using Python, and to explore how a simple web app can
+        support better group dynamics.
+    </p>
+</section>
+{% endblock %}

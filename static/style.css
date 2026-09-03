@@ -1,74 +1,396 @@
+/* =========================================================
+   Group Management — Stylesheet
+   Palette: sage green (cooperation) + warm amber (connection)
+   Type: Fraunces (headings) + Work Sans (body)
+   ========================================================= */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    /* Color */
+    --color-bg: #F6F7F4;
+    --color-surface: #FFFFFF;
+    --color-text: #22292A;
+    --color-text-muted: #5C6B66;
+    --color-primary: #3E6259;
+    --color-primary-hover: #2F4C45;
+    --color-accent: #E0A458;
+    --color-border: #DCE3DE;
+    --color-danger: #B4553F;
+    --color-danger-hover: #93432F;
+    --color-success-bg: #E3EEE8;
+    --color-success-text: #2F4C45;
+    --color-error-bg: #F5E4DE;
+    --color-error-text: #8A3E28;
+
+    /* Type */
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Layout */
+    --max-width: 1040px;
+    --radius: 8px;
 }
 
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0 0 0.5em 0;
+    color: var(--color-text);
+}
+
+h1 { font-size: 2.6rem; font-weight: 600; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.25rem; }
+
+p {
+    margin: 0 0 1em 0;
+    max-width: 65ch;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ---------- Navbar ---------- */
 
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #1e1e1e; 
-    color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
 }
 
-
-.navbar .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-text);
 }
 
+.logo:hover {
+    text-decoration: none;
+}
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 25px;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
 }
 
+.nav-links a {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid transparent;
+}
 
-.nav-links li a {
-    color: #e0e0e0;
+.nav-links a:hover {
+    color: var(--color-text);
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
 }
 
-
-.nav-links li a:hover {
-    color: #4daafc; 
+.nav-links a.is-active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
 }
 
+/* ---------- Page layout ---------- */
 
-.content {
-    padding: 50px 40px;
-    text-align: center;
-    color: #333;
+.page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
 }
 
-.content h1 {
-    margin-bottom: 10px;
+.prose {
+    max-width: 640px;
 }
-.image-container {
-    margin-top: 40px;
+
+.prose h2 {
+    margin-top: 2rem;
+}
+
+/* ---------- Hero (home page) ---------- */
+
+.hero {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 3rem;
 }
 
+.hero-text {
+    flex: 1 1 420px;
+}
+
+.hero-text h1 {
+    max-width: 12ch;
+}
+
+.hero-sub {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-bottom: 1.75rem;
+}
+
+.hero-media {
+    flex: 1 1 320px;
+}
 
 .hero-image {
-    display: block;        
-    margin: 0 auto;
     width: 100%;
-    max-width: 700px; 
-    border-radius: 16px; 
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    height: auto;
+    border-radius: var(--radius);
+    display: block;
+}
 
+/* ---------- About-this-project fact list ---------- */
 
-.hero-image:hover {
-    transform: translateY(-5px);
+.fact-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0;
+}
+
+.fact dt {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+}
+
+.fact dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger);
+    color: #FFFFFF;
+}
+
+.btn-small {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+}
+
+/* ---------- Forms ---------- */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 440px;
+}
+
+.form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+}
+
+.form label:first-of-type {
+    margin-top: 0;
+}
+
+.form input,
+.form textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    resize: vertical;
+}
+
+.form input:focus,
+.form textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.form .btn {
+    margin-top: 1.5rem;
+    align-self: flex-start;
+}
+
+/* ---------- Flash messages ---------- */
+
+.flash-stack {
+    margin-bottom: 2rem;
+}
+
+.flash {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.flash-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+}
+
+.flash-error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+}
+
+/* ---------- Table (messages page) ---------- */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.table th {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+.table tbody tr:hover {
+    background-color: var(--color-surface);
+}
+
+.empty-state {
+    color: var(--color-text-muted);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem 1.25rem;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-text h1 {
+        max-width: none;
+    }
+
+    .fact-list {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+}

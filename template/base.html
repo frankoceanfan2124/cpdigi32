@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Group Management{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">Group Management</a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}" class="{{ 'is-active' if request.path == '/' else '' }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}" class="{{ 'is-active' if request.path == '/about' else '' }}">About</a></li>
+            <li><a href="{{ url_for('terms') }}" class="{{ 'is-active' if request.path == '/terms' else '' }}">Terms</a></li>
+            <li><a href="{{ url_for('contact') }}" class="{{ 'is-active' if request.path == '/contact' else '' }}">Contact</a></li>
+            <li><a href="{{ url_for('messages') }}" class="{{ 'is-active' if request.path == '/messages' else '' }}">Messages</a></li>
+            {% if session.get('logged_in') %}
+            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main class="page">
+        {% with flash_messages = get_flashed_messages(with_categories=true) %}
+            {% if flash_messages %}
+                <div class="flash-stack">
+                    {% for category, msg in flash_messages %}
+                        <p class="flash flash-{{ category }}">{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>Group Management &mdash; a Computer Science coursework project.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,40 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+{% extends "base.html" %}
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">Group Management</div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/messages">Messages</a></li>
-        </ul>
-        
-    </nav>
+{% block title %}Terms &mdash; Group Management{% endblock %}
 
-    <!-- Terms Content -->
-    <main class="content">
-        <h1>Terms of Service</h1>
-        <section class="docs-section">
-            <h2>1. Usage of the MVP</h2>
-            <p>By accessing this site, you agree to use it solely for educational and grading purposes in my Computer Science class.</p>
-            
-            <h2>2. Data Privacy</h2>
-            <p>No real user data is collected or stored on this server at this time.</p>
-            
-            <h2>3. Intellectual Property</h2>
-            <p>All code belongs to the developer (me) and is submitted as original coursework.</p>
-        </section>
-    </main>
+{% block content %}
+<h1>Terms of service</h1>
+<section class="prose">
+    <h2>1. Usage of the MVP</h2>
+    <p>By accessing this site, you agree to use it solely for educational and grading purposes in my Computer Science class.</p>
 
-</body>
-</html>
+    <h2>2. Data privacy</h2>
+    <p>No real user data is collected or stored on this server at this time.</p>
+
+    <h2>3. Intellectual property</h2>
+    <p>All code belongs to the developer (me) and is submitted as original coursework.</p>
+</section>
+{% endblock %}

@@ -1,56 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .flash-message {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .flash-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .flash-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">Group Management</div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="content">
-        <h1>Admin Login</h1>
-        <section class="docs-section">
+{% block title %}Log in &mdash; Group Management{% endblock %}
 
-            {% with flash_messages = get_flashed_messages(with_categories=true) %}
-                {% if flash_messages %}
-                    {% for category, msg in flash_messages %}
-                        <p class="flash-message flash-{{ category }}">{{ msg }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+{% block content %}
+<h1>Admin log in</h1>
+<section class="prose">
+    <form action="{{ url_for('login') }}" method="POST" class="form">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter admin password" required>
 
-            <form action="{{ url_for('login') }}" method="POST">
-                <p>Password:</p>
-                <input type="password" name="password" placeholder="Enter admin password" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
-
-                <button type="submit" style="padding: 10px 20px; background-color: #4daafc; color: white; border: none; border-radius: 5px; cursor: pointer;">Log In</button>
-            </form>
-        </section>
-    </main>
-</body>
-</html>
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+</section>
+{% endblock %}

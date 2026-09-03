@@ -1,89 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submitted Messages</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .flash-message {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .flash-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .flash-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .delete-btn {
-            padding: 6px 12px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">Group Management</div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/messages">Messages</a></li>
-            <li><a href="/logout">Log Out</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="content">
-        <h1>Submitted Messages</h1>
-        <section class="docs-section">
+{% block title %}Messages &mdash; Group Management{% endblock %}
 
-            {% with flash_messages = get_flashed_messages(with_categories=true) %}
-                {% if flash_messages %}
-                    {% for category, msg in flash_messages %}
-                        <p class="flash-message flash-{{ category }}">{{ msg }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
-            {% if messages %}
-                <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #ccc;">
-                            <th style="padding: 10px;">Email</th>
-                            <th style="padding: 10px;">Message</th>
-                            <th style="padding: 10px;">Sent At</th>
-                            <th style="padding: 10px;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for m in messages %}
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 10px;">{{ m['email'] }}</td>
-                            <td style="padding: 10px;">{{ m['message'] }}</td>
-                            <td style="padding: 10px;">{{ m['timestamp'] }}</td>
-                            <td style="padding: 10px;">
-                                <form action="{{ url_for('delete_message_route', message_id=m['id']) }}" method="POST" onsubmit="return confirm('Delete this message?');">
-                                    <button type="submit" class="delete-btn">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p>No messages have been submitted yet.</p>
-            {% endif %}
-
-        </section>
-    </main>
-</body>
-</html>
+{% block content %}
+<h1>Submitted messages</h1>
+<section class="prose">
+    {% if messages %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Sent at</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in messages %}
+                <tr>
+                    <td>{{ m['email'] }}</td>
+                    <td>{{ m['message'] }}</td>
+                    <td>{{ m['timestamp'] }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_message_route', message_id=m['id']) }}" method="POST" onsubmit="return confirm('Delete this message?');">
+                            <button type="submit" class="btn btn-danger btn-small">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="empty-state">No messages have been submitted yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
