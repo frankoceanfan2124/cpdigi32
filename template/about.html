@@ -3,13 +3,31 @@
 {% block title %}About &mdash; Group Management{% endblock %}
 
 {% block content %}
-<h1>About the developer</h1>
+<h1>Hey, I'm the person who made this!</h1>
 <section class="prose">
     <p>
-        I am building this application as part of my Computer Science
-        coursework. The goal is to master frontend layout and backend
-        routing using Python, and to explore how a simple web app can
-        support better group dynamics.
+        This whole site started as a Computer Science project, and
+        honestly it turned into way more work than I expected, but
+        I'm pretty proud of how it turned out!
+    </p>
+    <p>
+        The main goal was to actually learn how a website works
+        behind the scenes, not just the pretty front part. So I
+        picked Python and Flask and figured out routing, a real
+        database, a login system, all of it, mostly by breaking
+        things and then fixing them again.
+    </p>
+    <p>
+        And since the topic is group dynamics, I figured I should
+        practice what I preach a bit. So I read a stack of research
+        on what actually makes groups work well, and tried to build
+        something that's genuinely useful and not just a school
+        project box to tick. You can check that out on the
+        <a href="{{ url_for('research') }}">research page</a> if
+        you're curious!
+    </p>
+    <p>
+        Thanks for stopping by. Hope you find something useful here!
     </p>
 </section>
 {% endblock %}
