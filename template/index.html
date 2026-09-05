@@ -3,20 +3,22 @@
 {% block title %}Group Management &mdash; Home{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-text">
-        <h1>Better teams, built on better dynamics.</h1>
-        <p class="hero-sub">
-            A Computer Science project exploring how small, deliberate habits
-            improve how groups work together &mdash; from communication to
-            conflict to shared ownership.
-        </p>
-        <a href="{{ url_for('contact') }}" class="btn btn-primary">Get in touch</a>
-    </div>
-    <div class="hero-media">
-        <img src="{{ url_for('static', filename='team.jpeg.webp') }}" alt="A group collaborating together" class="hero-image">
+<section class="intro">
+    <h1>Better teams, built on better dynamics.</h1>
+    <p class="hero-sub">
+        A Computer Science project exploring how small, deliberate habits
+        improve how groups work together &mdash; from communication to
+        conflict to shared ownership.
+    </p>
+    <a href="{{ url_for('contact') }}" class="btn btn-primary">Get in touch</a>
+
+    <div class="polaroid">
+        <img src="{{ url_for('static', filename='team.jpeg.webp') }}" alt="A group collaborating together">
+        <p class="polaroid-caption">what good group dynamics actually looks like</p>
     </div>
 </section>
+
+<hr class="divider">
 
 <section class="about-project">
     <h2>Grounded in research</h2>
@@ -26,42 +28,22 @@
         peer-reviewed research &mdash; including Hackman and Wageman's
         six conditions for high-performing teams.
     </p>
-    <dl class="fact-list">
-        <div class="fact">
-            <dt>What causes poor dynamics</dt>
-            <dd>Weak leadership, groupthink, unclear goals, and a lack of trust show up again and again across the research.</dd>
-        </div>
-        <div class="fact">
-            <dt>What the research recommends</dt>
-            <dd>Clear roles, open communication, psychological safety, and shared values consistently separate strong teams from struggling ones.</dd>
-        </div>
-        <div class="fact">
-            <dt>The academic backbone</dt>
-            <dd>Hackman &amp; Wageman's six conditions &mdash; three "Essentials" and three "Enablers" &mdash; anchor the practical advice in real research.</dd>
-        </div>
-    </dl>
+    <ul class="plain-list">
+        <li><strong>What causes poor dynamics:</strong> weak leadership, groupthink, unclear goals, and a lack of trust show up again and again across the research.</li>
+        <li><strong>What the research recommends:</strong> clear roles, open communication, psychological safety, and shared values consistently separate strong teams from struggling ones.</li>
+        <li><strong>The academic backbone:</strong> Hackman &amp; Wageman's six conditions &mdash; three "Essentials" and three "Enablers" &mdash; anchor the practical advice in real research.</li>
+    </ul>
     <a href="{{ url_for('research') }}" class="btn-link">Read the full research summaries</a>
 </section>
 
+<hr class="divider">
+
 <section class="about-project">
     <h2>About this build</h2>
-    <dl class="fact-list">
-        <div class="fact">
-            <dt>Tech stack</dt>
-            <dd>Built using Python and the Flask framework.</dd>
-        </div>
-        <div class="fact">
-            <dt>Frontend</dt>
-            <dd>Native HTML5 and CSS3, with no external UI frameworks.</dd>
-        </div>
-        <div class="fact">
-            <dt>Project status</dt>
-            <dd>
-                Sprint 3 &mdash; refining documentation and interface design
-                on top of a working navigation system, contact form, and
-                database from Sprint 2.
-            </dd>
-        </div>
-    </dl>
+    <ul class="plain-list">
+        <li><strong>Tech stack:</strong> built using Python and the Flask framework.</li>
+        <li><strong>Frontend:</strong> native HTML5 and CSS3, with no external UI frameworks.</li>
+        <li><strong>Project status:</strong> Sprint 3 &mdash; refining documentation and interface design on top of a working navigation system, contact form, and database from Sprint 2.</li>
+    </ul>
 </section>
 {% endblock %}

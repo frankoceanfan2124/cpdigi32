@@ -7,11 +7,20 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+    <div class="a11y-bar">
+        <div class="a11y-bar-inner">
+            <span class="a11y-label">Accessibility:</span>
+            <button type="button" class="a11y-btn" id="a11y-text-size" aria-pressed="false">Bigger text</button>
+            <button type="button" class="a11y-btn" id="a11y-dyslexia" aria-pressed="false">Dyslexia-friendly font</button>
+            <button type="button" class="a11y-btn" id="a11y-contrast" aria-pressed="false">High contrast</button>
+        </div>
+    </div>
 
     <nav class="navbar">
         <a href="{{ url_for('home') }}" class="logo">Group Management</a>
@@ -45,6 +54,43 @@
     <footer class="site-footer">
         <p>Group Management &mdash; a Computer Science coursework project.</p>
     </footer>
+
+    <script>
+        (function () {
+            var body = document.body;
+            var html = document.documentElement;
+
+            var bigTextBtn = document.getElementById('a11y-text-size');
+            var dyslexiaBtn = document.getElementById('a11y-dyslexia');
+            var contrastBtn = document.getElementById('a11y-contrast');
+
+            function applyState() {
+                var bigText = localStorage.getItem('a11y-big-text') === 'true';
+                var dyslexiaFont = localStorage.getItem('a11y-dyslexia-font') === 'true';
+                var highContrast = localStorage.getItem('a11y-high-contrast') === 'true';
+
+                html.style.setProperty('--text-scale', bigText ? '1.25' : '1');
+                body.classList.toggle('dyslexia-font', dyslexiaFont);
+                body.classList.toggle('high-contrast', highContrast);
+
+                bigTextBtn.setAttribute('aria-pressed', String(bigText));
+                dyslexiaBtn.setAttribute('aria-pressed', String(dyslexiaFont));
+                contrastBtn.setAttribute('aria-pressed', String(highContrast));
+            }
+
+            function toggle(key) {
+                var current = localStorage.getItem(key) === 'true';
+                localStorage.setItem(key, String(!current));
+                applyState();
+            }
+
+            bigTextBtn.addEventListener('click', function () { toggle('a11y-big-text'); });
+            dyslexiaBtn.addEventListener('click', function () { toggle('a11y-dyslexia-font'); });
+            contrastBtn.addEventListener('click', function () { toggle('a11y-high-contrast'); });
+
+            applyState();
+        })();
+    </script>
 
 </body>
 </html>
