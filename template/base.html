@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -19,23 +19,24 @@
             <button type="button" class="a11y-btn" id="a11y-text-size" aria-pressed="false">Bigger text</button>
             <button type="button" class="a11y-btn" id="a11y-dyslexia" aria-pressed="false">Dyslexia-friendly font</button>
             <button type="button" class="a11y-btn" id="a11y-contrast" aria-pressed="false">High contrast</button>
+            <button type="button" class="a11y-btn" id="a11y-dark" aria-pressed="false">Dark mode</button>
         </div>
     </div>
 
-    <nav class="navbar">
+    <header class="site-header">
         <a href="{{ url_for('home') }}" class="logo">Group Management</a>
         <ul class="nav-links">
-            <li><a href="{{ url_for('home') }}" class="{{ 'is-active' if request.path == '/' else '' }}">Home</a></li>
-            <li><a href="{{ url_for('about') }}" class="{{ 'is-active' if request.path == '/about' else '' }}">About</a></li>
-            <li><a href="{{ url_for('research') }}" class="{{ 'is-active' if request.path == '/research' else '' }}">Research</a></li>
-            <li><a href="{{ url_for('terms') }}" class="{{ 'is-active' if request.path == '/terms' else '' }}">Terms</a></li>
-            <li><a href="{{ url_for('contact') }}" class="{{ 'is-active' if request.path == '/contact' else '' }}">Contact</a></li>
-            <li><a href="{{ url_for('messages') }}" class="{{ 'is-active' if request.path == '/messages' else '' }}">Messages</a></li>
+            <li><a href="{{ url_for('home') }}" class="{{ 'is-active' if request.path == '/' else '' }}">home</a></li>
+            <li><a href="{{ url_for('about') }}" class="{{ 'is-active' if request.path == '/about' else '' }}">about</a></li>
+            <li><a href="{{ url_for('research') }}" class="{{ 'is-active' if request.path == '/research' else '' }}">research</a></li>
+            <li><a href="{{ url_for('terms') }}" class="{{ 'is-active' if request.path == '/terms' else '' }}">terms</a></li>
+            <li><a href="{{ url_for('contact') }}" class="{{ 'is-active' if request.path == '/contact' else '' }}">contact</a></li>
+            <li><a href="{{ url_for('messages') }}" class="{{ 'is-active' if request.path == '/messages' else '' }}">messages</a></li>
             {% if session.get('logged_in') %}
-            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+            <li><a href="{{ url_for('logout') }}">log out</a></li>
             {% endif %}
         </ul>
-    </nav>
+    </header>
 
     <main class="page">
         {% with flash_messages = get_flashed_messages(with_categories=true) %}
@@ -63,19 +64,23 @@
             var bigTextBtn = document.getElementById('a11y-text-size');
             var dyslexiaBtn = document.getElementById('a11y-dyslexia');
             var contrastBtn = document.getElementById('a11y-contrast');
+            var darkBtn = document.getElementById('a11y-dark');
 
             function applyState() {
                 var bigText = localStorage.getItem('a11y-big-text') === 'true';
                 var dyslexiaFont = localStorage.getItem('a11y-dyslexia-font') === 'true';
                 var highContrast = localStorage.getItem('a11y-high-contrast') === 'true';
+                var darkMode = localStorage.getItem('a11y-dark-mode') === 'true';
 
                 html.style.setProperty('--text-scale', bigText ? '1.25' : '1');
                 body.classList.toggle('dyslexia-font', dyslexiaFont);
                 body.classList.toggle('high-contrast', highContrast);
+                body.classList.toggle('dark-mode', darkMode);
 
                 bigTextBtn.setAttribute('aria-pressed', String(bigText));
                 dyslexiaBtn.setAttribute('aria-pressed', String(dyslexiaFont));
                 contrastBtn.setAttribute('aria-pressed', String(highContrast));
+                darkBtn.setAttribute('aria-pressed', String(darkMode));
             }
 
             function toggle(key) {
@@ -87,6 +92,7 @@
             bigTextBtn.addEventListener('click', function () { toggle('a11y-big-text'); });
             dyslexiaBtn.addEventListener('click', function () { toggle('a11y-dyslexia-font'); });
             contrastBtn.addEventListener('click', function () { toggle('a11y-high-contrast'); });
+            darkBtn.addEventListener('click', function () { toggle('a11y-dark-mode'); });
 
             applyState();
         })();
